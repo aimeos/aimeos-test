@@ -26,7 +26,7 @@ before_script:
   - composer req --no-update aimeos/ai-slim:dev-master aimeos/ai-symfony:dev-master aimeos/ai-typo3:dev-master
   - composer req --no-update aimeos/ai-fosuser:dev-master aimeos/ai-cache:dev-master aimeos/ai-gettext:dev-master
   - composer req --no-update aimeos/ai-monolog:dev-master aimeos/ai-swiftmailer:dev-master aimeos/ai-twig:dev-master
-  - travis_retry composer update
+  - travis_retry php -d memory_limit=-1 composer update
   - if [[ $DB = 'mysql' ]]; then mysql -e "CREATE DATABASE aimeos; GRANT ALL ON aimeos.* TO 'aimeos'@'127.0.0.1' IDENTIFIED BY 'aimeos'"; fi
   - if [[ $DB = 'mysql' ]]; then echo "<?php return array( 'db' => array( 'adapter' => 'mysql', 'host' => '127.0.0.1', 'database' => 'aimeos', 'username' => 'aimeos', 'password' => 'aimeos', 'limit' => 2, 'opt-persistent' => false, 'stmt' => array( \"SET SESSIOn sort_buffer_size=2097144; SET NAMES 'utf8'; SET SESSION sql_mode='ANSI'\" ) ), 'fs' => array( 'adapter' => 'Standard', 'basedir' => '.' ), 'mq' => array( 'adapter' => 'Standard', 'db' => 'db' ) );" > config/resource.php; fi
   - if [[ $DB = 'pgsql' ]]; then psql -c "CREATE DATABASE aimeos;" -U postgres; fi
