@@ -1,0 +1,28 @@
+sudo: false
+dist: xenial
+language: php
+
+services:
+  - mysql
+  - postgresql
+
+php:
+  - 7.4
+
+env:
+  - DB=mysql
+  - DB=pgsql
+
+matrix:
+  fast_finish: true
+
+before_script:
+  - git clone https://github.com/aimeos/aimeos-core .
+  - if [[ $DB = 'mysql' ]]; then mysql -e "CREATE DATABASE aimeos; GRANT ALL ON aimeos.* TO 'aimeos'@'127.0.0.1' IDENTIFIED BY 'aimeos'"; fi
+  - if [[ $DB = 'mysql' ]]; then echo "<?php return array( 'db' => array( 'adapter' => 'mysql', 'host' => '127.0.0.1', 'database' => 'aimeos', 'username' => 'aimeos', 'password' => 'aimeos', 'limit' => 2, 'opt-persistent' => false, 'stmt' => array( \"SET SESSIOn sort_buffer_size=2097144; SET NAMES 'utf8'; SET SESSION sql_mode='ANSI'\" ) ), 'fs' => array( 'adapter' => 'Standard', 'basedir' => '.' ), 'mq' => array( 'adapter' => 'Standard', 'db' => 'db' ) );" > config/resource.php; fi
+  - if [[ $DB = 'pgsql' ]]; then psql -c "CREATE DATABASE aimeos;" -U postgres; fi
+  - if [[ $DB = 'pgsql' ]]; then psql -c "CREATE USER aimeos PASSWORD 'aimeos';" -U postgres; fi
+  - if [[ $DB = 'pgsql' ]]; then psql -c "GRANT ALL PRIVILEGES ON DATABASE aimeos TO aimeos;" -U postgres; fi
+  - if [[ $DB = 'pgsql' ]]; then echo "<?php return array( 'db' => array( 'adapter' => 'pgsql', 'host' => '127.0.0.1', 'database' => 'aimeos', 'username' => 'aimeos', 'password' => 'aimeos', 'limit' => 2, 'opt-persistent' => false, 'stmt' => array() ), 'fs' => array( 'adapter' => 'Standard', 'basedir' => '.' ), 'mq' => array( 'adapter' => 'Standard', 'db' => 'db' ) );" > config/resource.php; fi
+
+script: "vendor/bin/phing setup test check"
