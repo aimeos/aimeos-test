@@ -17,7 +17,7 @@ matrix:
   fast_finish: true
 
 before_script:
-  - git clone https://github.com/aimeos/aimeos-core core
+  - git clone -b 2019.10 https://github.com/aimeos/aimeos-core core
   - cd core
   - composer req --no-update aimeos/ai-controller-frontend:2019.10.x-dev aimeos/ai-controller-jobs:2019.10.x-dev
   - composer req --no-update aimeos/ai-admin-jqadm:2019.10.x-dev aimeos/ai-admin-jsonadm:2019.10.x-dev
