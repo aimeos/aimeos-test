@@ -19,13 +19,13 @@ matrix:
 before_script:
   - git clone https://github.com/aimeos/aimeos-core core
   - cd core
-  - composer req --no-update aimeos/ai-controller-frontend:dev-master aimeos/ai-controller-jobs:dev-master
-  - composer req --no-update aimeos/ai-admin-jqadm:dev-master aimeos/ai-admin-jsonadm:dev-master
-  - composer req --no-update aimeos/ai-client-html:dev-master aimeos/ai-client-jsonapi:dev-master
-  - composer req --no-update aimeos/ai-ezpublish:dev-master aimeos/ai-flow:dev-master aimeos/ai-laravel:dev-master
-  - composer req --no-update aimeos/ai-slim:dev-master aimeos/ai-symfony:dev-master aimeos/ai-typo3:dev-master
-  - composer req --no-update aimeos/ai-fosuser:dev-master aimeos/ai-cache:dev-master aimeos/ai-gettext:dev-master
-  - composer req --no-update aimeos/ai-monolog:dev-master aimeos/ai-swiftmailer:dev-master aimeos/ai-twig:dev-master
+  - composer req --no-update aimeos/ai-controller-frontend:2019.10.x-dev aimeos/ai-controller-jobs:2019.10.x-dev
+  - composer req --no-update aimeos/ai-admin-jqadm:2019.10.x-dev aimeos/ai-admin-jsonadm:2019.10.x-dev
+  - composer req --no-update aimeos/ai-client-html:2019.10.x-dev aimeos/ai-client-jsonapi:2019.10.x-dev
+  - composer req --no-update aimeos/ai-ezpublish:2019.10.x-dev aimeos/ai-flow:2019.10.x-dev aimeos/ai-laravel:2019.10.x-dev
+  - composer req --no-update aimeos/ai-slim:2019.10.x-dev aimeos/ai-symfony:2019.10.x-dev
+  - composer req --no-update aimeos/ai-fosuser:2019.10.x-dev aimeos/ai-cache:2019.10.x-dev aimeos/ai-gettext:2019.10.x-dev
+  - composer req --no-update aimeos/ai-monolog:2019.10.x-dev aimeos/ai-swiftmailer:2019.10.x-dev aimeos/ai-twig:2019.10.x-dev
   - COMPOSER_MEMORY_LIMIT=-1 travis_retry composer update
   - if [[ $DB = 'mysql' ]]; then mysql -e "CREATE DATABASE aimeos; GRANT ALL ON aimeos.* TO 'aimeos'@'127.0.0.1' IDENTIFIED BY 'aimeos'"; fi
   - if [[ $DB = 'mysql' ]]; then echo "<?php return array( 'db' => array( 'adapter' => 'mysql', 'host' => '127.0.0.1', 'database' => 'aimeos', 'username' => 'aimeos', 'password' => 'aimeos', 'limit' => 2, 'opt-persistent' => false, 'stmt' => array( \"SET SESSIOn sort_buffer_size=2097144; SET NAMES 'utf8'; SET SESSION sql_mode='ANSI'\" ) ), 'fs' => array( 'adapter' => 'Standard', 'basedir' => '.' ), 'mq' => array( 'adapter' => 'Standard', 'db' => 'db' ) );" > config/resource.php; fi
