@@ -20,7 +20,7 @@ matrix:
 before_script:
   - git clone https://github.com/aimeos/aimeos-core core
   - cd core
-  - curl -o composer https://getcomposer.org/composer-1.phar
+  - curl -o composer https://getcomposer.org/composer-2.phar
   - php composer req --no-update aimeos/ai-controller-frontend:dev-master aimeos/ai-controller-jobs:dev-master
   - php composer req --no-update aimeos/ai-admin-jqadm:dev-master aimeos/ai-admin-jsonadm:dev-master
   - php composer req --no-update aimeos/ai-client-html:dev-master aimeos/ai-client-jsonapi:dev-master
