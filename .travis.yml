@@ -7,8 +7,8 @@ services:
   - postgresql
 
 php:
-  - 7.4
-  - 7.1
+  - 8.0
+  - 7.2
 
 env:
   - DB=mysql
